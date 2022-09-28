@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-
+import Login from './Login';
+import SignUp from './SignUp';
 import NoMaching from './NoMaching';
-import MyCartPage from './MyCartPage'
-import ProductDetailPage from './ProductDetailPage';
+import ForgetPswd from './ForgetPswd';
+import ProductDetail from './ProductDetail';
 
+import NewCartPage from './NewCartPage';
 
 import ProductListPage from './ProductListPage';
 
-import FooterPage from './FooterPage';
+import Footer from './Footer';
 
 import { Routes, Route } from "react-router-dom";
 
-import HeadPage from './HeadPage';
+import Header from './Header';
 
 
 function App() {
@@ -40,21 +42,26 @@ function App() {
     <div className="flex flex-col h-screen overflow ">
 
 
-      <HeadPage productCount={totalCount} />
+     <Header productCount={totalCount}/>
 
       <div className='grow'>
         <Routes>
 
           <Route path='/' element={<ProductListPage />}> </Route>
 
-          <Route path="/viewDetail/:id/" element={<ProductDetailPage onAddToCart={handlAddToCard} />}> </Route>
+          <Route path="/viewDetail/:id/" element={<ProductDetail onAddToCart={handlAddToCard} />}> </Route>
 
           <Route path='*' element={<NoMaching />}></Route>
-          <Route path="/MyCartPage/" element={<MyCartPage/>}></Route>
+          <Route path="/NewCartPage/" element={<NewCartPage/>}></Route>
 
+          <Route path="/Login/" element={<Login/>}></Route>
+           <Route path="/SignUp/" element={<SignUp/>}></Route>
+           <Route path="/SignUp/" element={<SignUp/>}></Route>
+           <Route path="/ForgetPswd/" element={<ForgetPswd/>}></Route>
+     
         </Routes>
       </div>
-      <FooterPage />
+      <Footer />
     </div >
   )
 }

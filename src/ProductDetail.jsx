@@ -1,54 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, memo } from 'react';
+import PageNotFound from "./PageNotFound";
+import Loading from "./Loading"
 
 import { Link } from "react-router-dom"
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi"
+import { useParams } from 'react-router-dom';
+import { getProductData } from './Api';
 
-function ProductDetail({ data, onAddToCart }) {
+function ProductDetail({ onAddToCart }) {
 
   const [count, setCount] = useState(1)
+
+  const [Detail, useDetail] = useState();
+
+  const [loading, setLoading] = useState(true);
+
+
+  const params = useParams();
+  const id = +(params.id);
+
+
+  useEffect(function() {
+    const promis = getProductData(id);
+    promis.then(function(product) {
+      useDetail(product)
+      setLoading(false)
+    }).catch(function(){
+      setLoading(false)
+    })
+  }, [id]);
+
+  if (loading) {
+    return (
+      <Loading />
+    )
+  }
+
+  if (!Detail) {
+    return <PageNotFound />
+  }
+  
 
   function hendleInputChange(event) {
     setCount(+event.target.value);
   }
 
   function hendleButtoClick() {
-    onAddToCart(data.id, count);
+   
+    onAddToCart(Detail.id, count);
     setCount(1)
   }
 
-  function inputChangeRight(){
+  function inputChangeRight() {
     return setCount(1)
   }
-  function inputChangeLeft(){
+  function inputChangeLeft() {
     return setCount(1)
   }
 
   return (
-
-    <div className="flex flex-col justify-center items-cenrter p-4  ">
-      <div className=" text-black  ml-4">
-        <Link to="/" className=" p-3" ><IoArrowBackCircleOutline className="text-4xl" /></Link>
+ 
+     <div className="flex flex-col justify-center items-cenrter mt-9 p-4  ">
+   
+      <div className="  ml-4">
+        <Link to="/" className=" p-3" ><IoArrowBackCircleOutline className="text-4xl text-black "   /></Link>
       </div>
-      <div className="flex justify-between">
-        <div className="mx-5 flex-1">
-          <img src={data.thumbnail} />
+      <div className="sm:flex sm:justify-between">
+        <div className="sm:mx-5 sm:flex-1 ">
+          <img src={Detail.thumbnail} />
         </div>
 
-        <div className="flex-1 flex-col ">
-          <h1 className="text-xl font-medium text-gray-400 ">{data.category}</h1>
+        <div className="sm:flex-1 sm:flex-col ">
+          <h1 className="sm:text-2xlxl sm:font-semibold text-gray-400 ">{Detail.category}</h1>
 
-          <h1 className="text-xl font-medium ">{data.title}</h1>
+          <h1 className="sm:text-2xl sm:font-semibold ">{Detail.title}</h1>
 
-          <p className="">{data.description}</p>
+          <p className="sm:text-2xl sm:font-semibold">{Detail.description}</p>
 
-          <p className="mt-2"> ₹ {data.price}</p>
-          <img src={data.imeges} />
+          <p className="mt-2 sm:text-2xl sm:font-semibold"> ₹ {Detail.price}</p>
 
           <div className="flex mt-5">
-            <input value={count} onChange={hendleInputChange} type="number" add={data.add} class="w-12 px-2 hover:bg-green-400 bg-salte-400 ring-2 hover:ring-green-600 rounded-lg" />
+            <input value={count} onChange={hendleInputChange} type="number" add={Detail.add} className="w-12 px-2 hover:bg-red-600 bg-salte-400 ring-2 hover:ring-red-600 rounded-lg" />
 
-            <button className="bg-white hover:bg-green-400 ring-2 hover:boder-transparent  ring-green-700  ml-2 bg-salte-400  rounded-lg p-2" onClick={hendleButtoClick} >add to cart</button></div>
+            <button className="bg-red-400 hover:bg-red-600 ring hover:border-transparent hover:border  ring-red-700  ml-2 bg-salte-400  rounded-lg px-2 py-1" onClick={hendleButtoClick} >add to cart</button></div>
         </div>
       </div>
       <div>
@@ -56,10 +91,10 @@ function ProductDetail({ data, onAddToCart }) {
       </div>
       <div className="flex mt-4 p-4 justify-between  ">
         <div>
-          {(data.id >= 2 && <Link to={"/viewDetail/" + (data.id - 1)}><HiChevronDoubleLeft className="text-5xl" onClick= {inputChangeLeft}/></Link>)}
+          {(Detail.id >= 2 && <Link to={"/viewDetail/" + (Detail.id - 1)}><HiChevronDoubleLeft className="text-5xl" onClick={inputChangeLeft} /></Link>)}
         </div>
         <div className="">
-          <Link onClick= {inputChangeRight} to={"/viewDetail/" + (data.id + 1)}><HiChevronDoubleRight className="text-5xl flex justify-end" /></Link>
+          <Link onClick={inputChangeRight} to={"/viewDetail/" + (Detail.id + 1)}><HiChevronDoubleRight className="text-5xl flex justify-end" /></Link>
         </div>
       </div>
 
