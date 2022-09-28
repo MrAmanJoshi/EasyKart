@@ -13,7 +13,7 @@ function HeadPage({ productCount }) {
 
    <Link to="/MyCartPage/">  <div className="flex">
         
-        <HiOutlineShoppingBag className="text-5xl text-orange-400  "></HiOutlineShoppingBag> <span className="text-green-500 font-bold -mr-7 mt-4 ml-2">{productCount}</span>
+        <HiOutlineShoppingBag className="text-5xl text-orange-400  "></HiOutlineShoppingBag> <span className="text-green-500 font-bold -mb-8 -ml-8 ">{productCount}</span>
 
       </div>    </Link> 
 
