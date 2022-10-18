@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{memo} from 'react';
 
 import { Link } from "react-router-dom";
 import { MdAspectRatio } from "react-icons/md";
@@ -7,7 +7,7 @@ import { MdAspectRatio } from "react-icons/md";
 function Product({thumbnail , category, title, price, id ,rating }) {
   return (
 
-    <div className=" border border-solid   mb-4  shadow-lg shadow-slate-700 bg-gray-200" >
+    <div className=" hover:border-2 hover:border-gray-300 mb-4 shadow-xs shadow-slate-100 bg-slate-50" >
 
       <div className="mb-2">
         <img className="w-64 h-64 object-cover " src={thumbnail} />
@@ -26,4 +26,4 @@ function Product({thumbnail , category, title, price, id ,rating }) {
     </div>
   );
 }
-export default Product;
+export default memo(Product);

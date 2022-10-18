@@ -1,4 +1,4 @@
-import React from "react"
+import React,{memo} from "react"
 import { Link } from "react-router-dom"
 
 function NoMaching(){
@@ -8,16 +8,13 @@ function NoMaching(){
  <p className=" shrink-0  text-3xl font-bold text-indigo-800 drop-shadow-md	 ">S o r r y... </p>
         
        
-        <p className=" shrink-0  text-xl text-green-500 font-medium my-5 italic">No Maching Results here. Please search anthor products.  </p>
+        <p className=" shrink-0  text-xl text-gray-700 font-medium my-5 italic">No Maching Results here. Please search anthor products.  </p>
            
+     </div>
      
-        
-        </div>
-      <div className='flex-1'><img src='https://i.postimg.cc/JnF22V4W/istockphoto-1355858742-612x612.jpg
-                                '/></div>
     </div>
   )
 }
 
 
-export default NoMaching;
+export default memo(NoMaching);

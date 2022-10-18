@@ -83,7 +83,7 @@ function ProductDetail({ onAddToCart }) {
           <div className="flex mt-5">
             <input value={count} onChange={hendleInputChange} type="number" add={Detail.add} className="w-12 px-2 hover:bg-red-600 bg-salte-400 ring-2 hover:ring-red-600 rounded-lg" />
 
-            <button className="bg-red-400 hover:bg-red-600 ring hover:border-transparent hover:border  ring-red-700  ml-2 bg-salte-400  rounded-lg px-2 py-1" onClick={hendleButtoClick} >add to cart</button></div>
+            <button className="bg-red-400 hover:bg-red-600 ring hover:border-transparent hover:border  ring-red-700  ml-2 bg-salte-400  rounded-lg px-2 py-1" onClick={hendleButtoClick} >Add to cart</button></div>
         </div>
       </div>
       <div>

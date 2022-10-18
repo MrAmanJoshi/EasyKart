@@ -1,62 +1,42 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import NewCartRow from "./NewCartRow"
+import Button from "./Button"
 
-function NewCartList() {
+function NewCartList({products, cart, updateCart, }) {
+
+  const [localCart, setLocalCart]= useState({cart})
+  
+useEffect(function(){
+setLocalCart(cart)
+},[cart])
+
+function updateCartPage(){
+updateCart(localCart)
+}
+  
   return(
-  
-   <div className="m-2 flex flex-col">
-     <div className="border  border-gray-300  py-2 flex flex-col ">
-        <NewCartRow/>
-      <div className="  border-gray-300 px-4 py-2 flex ">
+
+   <div className="mx-4 mt-24 flex flex-col">
+     <div className="border  border-gray-200  py-2 flex flex-col ">
+
+   <NewCartRow  products= {products} cart= {cart} updateCart ={updateCart} localCart= {localCart} setLocalCart= {setLocalCart}  />
+      
+      <div className="mx-3 flex ">
+       <div className="flex border mr-2  border-gray-300 flex-1"><input type="text" placeholder="Coupen Code" className=""/></div>
+      
+   <div className="flex  flex-1" >  <Button className="">
+      APPLY COUPON
+      </Button></div>
        
-      <input type="text" placeholder="Coupen Code" className="border w-32  mr-4 border-gray-300"/>
-        <button className="py-1 rounded-lg bg-red-500 w-32 px-2 font-semibold text-white ">
-      APPLY COUPON
-      </button>
-        
       </div>
-     <button className="px-4 mx-5 py-2 rounded-lg my-2 bg-red-300 font-semibold border-x border-gray-300  text-white">
+     <Button onClick = {updateCartPage} className="w-32 mx-5 mt-2">
       UPDATE CART
-      </button>
+      </Button>
      </div>
 
-<div className="border border-gray-300 mx-3 my-3">
-<h4 className="font-bold  text-xl py-2 mr-2">Cart totals</h4>
-
-
-<div className="border-t border-gray-300 flex px-2 justify-between ">
-
-<p className=" py-3 mr-2">Subtotal:</p>
-<p>$566</p>
- </div>
-
-<div className="border-y border-gray-300 flex px-2 justify-between ">
-<p>Total</p>
-<p>$566</p>
 </div>
-<button className="px-6 py-2 font-semibold text-white mx-2 my-2 bg-red-400">PROCEED TO CHECKOUT</button>
- </div>
-      <div className="m-2 flex flex-col">
-  
-
-     <div className="border mx-3 border-gray-300 px-4 py-2 flex flex-col ">
-      <div className="  border-gray-300 px-4 py-2 flex ">
-      <input type="text" placeholder="Coupen Code" className="border w-32  mr-4 border-gray-300"/>
-        <button className="py-1 rounded-lg bg-red-500 w-32 px-2 font-semibold text-white ">
-      APPLY COUPON
-      </button>
-        
-      </div>
-
-
-        <button className="px-4 mx-5 py-2 rounded-lg my-2 bg-red-300 font-semibold border-x border-gray-300  text-white">
-      UPDATE CART
-      </button>
-     </div>
-</div>
-</div>
-
   )
 }
 
 export default NewCartList;
+     

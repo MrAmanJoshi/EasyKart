@@ -1,16 +1,11 @@
-import React from "react"
+import React,{memo} from "react"
 
-function Button(data) {
-  return (
-    
-    <div>
-      
-      <button type= "button" className="bg-white hover:bg-red-400 px-5 py-2 mr-2 rounded-lg  ring-2 ring-black hover:ring-red-700  ">{data.title} </button>
-   
-    </div>
-  );}
+const Button = (props ) =>{ 
+  
+  return  <button type={props.type} {...props} className={" text-white hover:bg-red-500 bg-red-300 font-medium px-2 py-1 mx-1 rounded-lg "+ props.className }></button>
+ }
 
 
 
 
-export default Button;
+export default memo(Button);
