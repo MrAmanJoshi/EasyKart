@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AuthRoute from './AuthRoute'
 import Login from './Login';
 import Loading from './Loading';
@@ -16,76 +16,55 @@ import UserRoute from "./UserRoute"
 import Alert from "./Alert"
 import UserProvider from './Providers/UserProvider'
 import AlertProvider from './Providers/AlertProvider'
+import CartProvider from './Providers/CartProvider'
 
 
 function App() {
-
-  const saveDataString = localStorage.getItem("my-cart");
-  const saveData = JSON.parse(saveDataString)
-
-  const [cart, setCart] = useState(saveData || {})
-
-  function handlAddToCard(productId, count) {
-    const oldCount = cart[productId] || 0;
-    const newCart = { ...cart, [productId]: oldCount + count }
-
-    updateCart(newCart);
-  }
-
-  function updateCart(newCart) {
-    const CartString = JSON.stringify(newCart);
-    localStorage.setItem("my-cart", CartString);
-    setCart(newCart)
-  }
-
-  const totalCount = Object.keys(cart).reduce(function(output, current) {
-    return output + cart[current];
-  }, 0);
-
-
-  return (
-
-    <div className="flex flex-col h-screen overflow ">
+return (
+ <div className="flex flex-col h-screen overflow ">
       
 <UserProvider>
+  <CartProvider>
   <AlertProvider>
-    <Alert/>
     
-  
-        <Header productCount={totalCount} />
+      <Alert/>
     
-
-      <div className='grow'>
+<Header/>
+    <div className='grow'>
         <Routes>
           
-          <Route path='/' element={ <UserRoute> 
+          <Route path='/' element={ //<UserRoute> 
   <ProductListPage />
-          </UserRoute> } > 
-          </Route>
+          //</UserRoute> 
+          } > </Route>
 
-          <Route path="/viewDetail/:id/" element={<ProductDetail onAddToCart={handlAddToCard} />}> </Route>
+          <Route path="/viewDetail/:id/" element={<ProductDetail />}> </Route>
 
           <Route path='*' element={<NoMaching />}></Route>
-          <Route path="/NewCartPage/" element={<NewCartPage cart={cart} updateCart={updateCart} />}></Route>
+          <Route path="/NewCartPage/" element={<NewCartPage />}></Route>
 
           <Route path="/Login/" element={<AuthRoute>
             <Login /> 
-          </AuthRoute>}></Route>
+          </AuthRoute>
+          }></Route>
 
           <Route path="/SignUp/" element={ <AuthRoute>
           <SignUp />
-          </AuthRoute>   }></Route>
+          </AuthRoute>   
+          }></Route>
 
-          <Route path="/profile/" element={<Profile />}></Route>
+          <Route path="/Profile/" element={<Profile />}></Route>
 
 
           <Route path="/ForgetPswd/" element={<ForgetPswd />}></Route>
-
-        </Routes>
+  
+    </Routes>
       </div>
-      <Footer />
+      
+  <Footer />    
     </AlertProvider>
-      </UserProvider>
+  </CartProvider>    
+  </UserProvider>
     </div >
   )
 }
